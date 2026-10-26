@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Open in Claude - Splendid Engines</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon-splendid.svg" />
+  <!--
+    Bounce page: Asana only links https URLs, so the Claude Session field holds
+    a link here and this page hands off to the Claude desktop app.
+
+      /claude/?task=<asana task gid>     -> new desktop Code task for that task
+      /claude/?session=session_<id>      -> reopen that session in desktop
+
+    Only an ID is accepted, checked against its shape. The prompt text is
+    built here, never taken from the URL, so the link cannot inject words.
+  -->
+  <style>
+    :root { --lagoon: #153047; --poppy: #DB4937; --bg: #FFFFFF; --muted: #5b6b78; }
+    @media (prefers-color-scheme: dark) {
+      :root { --lagoon: #E8EEF3; --bg: #0F1E2B; --muted: #9AAAB7; }
+    }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--bg); color: var(--lagoon); font-family: system-ui, -apple-system, sans-serif; padding: 16px; }
+    main { max-width: 28rem; text-align: center; }
+    h1 { font-size: 1.4rem; margin: 0 0 0.5rem; }
+    p { color: var(--muted); line-height: 1.45; margin: 0 0 1.25rem; }
+    a.btn { display: inline-block; background: var(--poppy); color: #fff; text-decoration: none;
+      padding: 0.65rem 1.2rem; border-radius: 6px; font-weight: 600; }
+    a.alt { display: block; margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="title">Opening Claude…</h1>
+    <p id="note">If Claude desktop does not open, use the button.</p>
+    <a class="btn" id="open" href="#" hidden>Open in Claude</a>
+    <a class="alt" id="web" href="#" hidden>Open in the browser instead</a>
+  </main>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var task = params.get('task') || '';
+      var session = params.get('session') || '';
+      var desktop = null, web = null;
+
+      if (/^session_[A-Za-z0-9]{8,64}$/.test(session)) {
+        desktop = 'claude://claude.ai/code/' + session;
+        web = 'https://claude.ai/code/' + session;
+      } else if (/^\d{10,20}$/.test(task)) {
+        var taskUrl = 'https://app.asana.com/0/0/' + task + '/f';
+        var prompt = 'Work this Asana task: ' + taskUrl + ' . ' +
+          'Load splendid-operating-protocol first. ' +
+          'Then write this session\'s link into the task\'s Claude Session field as ' +
+          'https://splendidengines.com/claude/?session=<this session\'s id, starting session_>. ' +
+          'If you cannot find your session id, say so in a comment on the task.';
+        desktop = 'claude://code/new?q=' + encodeURIComponent(prompt);
+        web = taskUrl;
+      }
+
+      var title = document.getElementById('title');
+      var note = document.getElementById('note');
+      if (!desktop) {
+        title.textContent = 'Nothing to open';
+        note.textContent = 'This link needs a task id or a session id.';
+        return;
+      }
+      var open = document.getElementById('open');
+      var alt = document.getElementById('web');
+      open.href = desktop; open.hidden = false;
+      alt.href = web; alt.hidden = false;
+      if (session) alt.textContent = 'Open the session in the browser instead';
+      else alt.textContent = 'Back to the Asana task';
+      location.href = desktop;
+    })();
+  </script>
+<script src="https://static.claydar.com/init.v1.js?id=cWRsely5TB"></script>
+</body>
+</html>
