@@ -1,7 +1,30 @@
 {
   "permissions": {
     "allow": [
-      "mcp__Riverside"
+      "mcp__Asana",
+      "mcp__Riverside",
+      "mcp__Google_Drive",
+      "mcp__Google_Docs",
+      "mcp__Canva",
+      "mcp__Slack__slack_send_message",
+      "mcp__Slack__slack_search_users",
+      "mcp__Slack__slack_read_channel",
+      "mcp__Slack__slack_read_thread",
+      "mcp__Slack__slack_search_public_and_private",
+      "mcp__Gmail__send_message",
+      "mcp__Gmail__create_draft",
+      "mcp__Gmail__search_threads",
+      "mcp__Gmail__get_thread",
+      "mcp__Gmail__get_message",
+      "mcp__Gmail__download_gmail_attachment",
+      "mcp__claude-code-remote__add_repo",
+      "mcp__claude-code-remote__register_repo_root",
+      "mcp__claude-code-remote__send_later",
+      "Bash(git clone:*)",
+      "Bash(git -C:*)",
+      "Bash(node:*)",
+      "Bash(mkdir:*)",
+      "WebFetch"
     ]
   }
 }
