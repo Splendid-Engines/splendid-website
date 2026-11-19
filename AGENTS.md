@@ -40,7 +40,14 @@ say so before falling back to anything else.
   change either, update every page that uses it.
 - **New writing piece:** copy `public/writing/_template/` (it already carries the
   header, footer, and the analytics tag), fill it in, and link it from
-  `public/writing/index.html`.
+  `public/writing/index.html`. Set its publish date in the `<head>` as
+  `<meta property="article:published_time" content="YYYY-MM-DD" />` (the same day
+  the hero shows), then run `npm run feeds:build` and commit the regenerated
+  `public/writing/feed.xml` and `public/sitemap.xml` with the piece. Splendid
+  reads the feed to find new articles. The Feeds GitHub Action fails when the
+  committed files are stale; it never commits for you.
+- **New page anywhere else:** run `npm run feeds:build` too, so it lands in
+  `public/sitemap.xml`. Pages marked `noindex` are left out.
 - **Build the body from the module library.** Articles are assembled from named,
   reusable modules (hero, pull-quote, stat band, charts, timeline, talking-head,
   CTA). The registry is `public/writing/MODULES.md`; the live gallery is

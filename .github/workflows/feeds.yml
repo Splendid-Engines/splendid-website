@@ -1,0 +1,45 @@
+# Checks that the committed writing feed and site map match the pages.
+# The site has no build step at deploy, so public/writing/feed.xml and
+# public/sitemap.xml are generated locally by scripts/build-feeds.mjs and
+# committed. This job regenerates them and fails when they differ.
+# It never commits: fix it by running the script and committing the result.
+name: Feeds
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/writing/**"
+      - "public/**/index.html"
+      - "scripts/build-feeds.mjs"
+      - ".github/workflows/feeds.yml"
+  pull_request:
+    paths:
+      - "public/writing/**"
+      - "public/**/index.html"
+      - "scripts/build-feeds.mjs"
+      - ".github/workflows/feeds.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Regenerate feed.xml and sitemap.xml
+        run: node scripts/build-feeds.mjs
+      - name: Compare with the committed files
+        run: |
+          if ! git diff --quiet -- public/writing/feed.xml public/sitemap.xml \
+             || [ -n "$(git status --porcelain -- public/writing/feed.xml public/sitemap.xml)" ]; then
+            git --no-pager diff -- public/writing/feed.xml public/sitemap.xml
+            git status --short -- public/writing/feed.xml public/sitemap.xml
+            echo "::error::feed.xml or sitemap.xml is out of date. Run node scripts/build-feeds.mjs and commit."
+            exit 1
+          fi
+          echo "feed.xml and sitemap.xml are up to date."

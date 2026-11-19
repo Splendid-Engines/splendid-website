@@ -2,10 +2,11 @@
   "name": "splendid-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Splendid Engines static marketing site. No build step at deploy time; this package.json exists only for local tooling (icon baking, article previews).",
+  "description": "Splendid Engines static marketing site. No build step at deploy time; this package.json exists only for local tooling (icon baking, article previews, the writing feed and site map).",
   "scripts": {
     "icons:build": "node public/our-brand/splendid-visual-brand/icons/v2/_build.mjs",
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "feeds:build": "node scripts/build-feeds.mjs"
   },
   "devDependencies": {
     "jimp": "^0.22.12",

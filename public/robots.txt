@@ -4,3 +4,5 @@
 
 User-agent: *
 Allow: /
+
+Sitemap: https://splendidengines.com/sitemap.xml
