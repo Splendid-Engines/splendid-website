@@ -21,6 +21,8 @@ All public-facing files live under `public/`.
 ```
 public/
 ├── index.html                        # homepage
+├── sitemap.xml                       # site map (generated: npm run feeds:build)
+├── robots.txt
 ├── about/index.html
 ├── case-study/index.html
 ├── contact/index.html
@@ -38,6 +40,7 @@ public/
 │       └── icons/v2/                 # icon gallery
 ├── writing/
 │   ├── index.html                    # list of all pieces
+│   ├── feed.xml                      # RSS feed (generated: npm run feeds:build)
 │   ├── MODULES.md                    # the writing module library (registry)
 │   ├── _template/index.html          # reference template for new pieces
 │   └── [slug]/index.html             # each piece, hand-built
@@ -77,9 +80,12 @@ grep -rl "static.claydar.com" public --include=*.html
 ## Adding a writing piece
 
 1. Copy `public/writing/_template/` to `public/writing/[your-slug]/`
-2. Fill in the title, date, summary, and body
+2. Fill in the title, date, summary, and body, and set the
+   `article:published_time` meta in the `<head>` to the publish date (`YYYY-MM-DD`)
 3. Build the body from the module library (see below)
 4. Add a link to it in `public/writing/index.html`
+5. Run `npm run feeds:build` and commit the regenerated `public/writing/feed.xml`
+   (the RSS feed) and `public/sitemap.xml`
 
 Each piece can have its own bespoke layout. The template is a starting point, not a straitjacket.
 

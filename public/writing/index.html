@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Mulish:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/custom.css" />
   <link rel="stylesheet" href="/assets/css/modules.css" />
+  <link rel="alternate" type="application/rss+xml" title="Splendid Engines: Writing" href="/writing/feed.xml">
 </head>
 <body>
 
@@ -69,18 +70,11 @@
     <div class="container container-narrow">
       <ul class="list-unstyled mb-0">
         <!--
-          To add a new piece: create writing/[slug]/index.html (copy
-          writing/_template/ as a starting point) and add an item here.
-          Order is newest-first. Use the original publish date.
-
-          <li class="py-4 border-top" style="border-color: var(--line) !important;">
-            <span class="eyebrow">[Type — Article / Essay / Report / Note]</span>
-            <a href="/writing/[slug]/" class="d-block text-decoration-none">
-              <h2 class="h3 mb-2 mt-2 text-lagoon">[Title]</h2>
-            </a>
-            <p class="text-muted-se mb-2">[One-sentence summary.]</p>
-            <div class="text-muted-se" style="font-size: 0.9rem;">[Month DD, YYYY]</div>
-          </li>
+          To add a new piece: create writing/<slug>/index.html (copy
+          writing/_template/ as a starting point), set its
+          article:published_time, and add an item here by copying an
+          existing entry below. Order is newest-first. Use the original
+          publish date. Then run `npm run feeds:build`.
         -->
         <li class="py-4 border-top" style="border-color: var(--line) !important;">
           <div class="entry-with-image">
