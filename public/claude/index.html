@@ -15,6 +15,9 @@
 
     Only an ID is accepted, checked against its shape. The prompt text is
     built here, never taken from the URL, so the link cannot inject words.
+
+    No analytics tag on this page, on purpose: its URLs carry Claude session
+    ids and Asana task ids, and a third-party script would receive them.
   -->
   <style>
     :root { --lagoon: #153047; --poppy: #DB4937; --bg: #FFFFFF; --muted: #5b6b78; }
@@ -76,6 +79,5 @@
       location.href = desktop;
     })();
   </script>
-<script src="https://static.claydar.com/init.v1.js?id=cWRsely5TB"></script>
 </body>
 </html>

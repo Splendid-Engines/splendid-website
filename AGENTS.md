@@ -35,6 +35,10 @@ say so before falling back to anything else.
   `public/_includes/analytics.html`. This applies to every new page too, even when
   it is not explicitly requested. To audit:
   `grep -rl "static.claydar.com" public --include=*.html`
+  One exception: `public/claude/index.html`, the bounce page that opens Claude
+  sessions and Asana tasks, has no tag on purpose. Its URLs carry Claude session
+  ids and Asana task ids, which must not go to a third-party script (Evan, Nov 26,
+  2026). The audit should list every page except that one.
 - **Header and footer are duplicated into every page.** Canonical copies are
   `public/_includes/header.html` and `public/_includes/footer.html`. When you
   change either, update every page that uses it.
